@@ -1,11 +1,11 @@
-var db = require('../dbAdmin');
+var dbAdmin = require('../dbAdmin');
 
 let userModel = {};
 
 //Read
 userModel.getUser = (callback) => {
-    if (db) {
-        db.query("SELECT * FROM usuario ", (err, rows) => {
+    if (dbAdmin) {
+        dbAdmin.query("SELECT * FROM usuario ", (err, rows) => {
             if (err) {
                 throw err;
             }
@@ -16,9 +16,39 @@ userModel.getUser = (callback) => {
     }
 };
 
+
+
 userModel.getUserByUsername = (username, callback) => {
-    if (db) {
-        db.query('SELECT a.*, b.id AS deviceId, b.deviceid AS device FROM usuario AS a INNER JOIN dispositivos_usuario AS b ON a.id = b.idusuario WHERE a.username = ?', [username], function(err, row) {
+    if (dbAdmin) {
+        dbAdmin.query(`SELECT a.*, 
+        b.nombre_empresa AS empresa,
+        b.dominio FROM usuario AS a INNER JOIN empresa AS b ON a.id_empresa = b.id_empresa WHERE a.username = ?`, [username], function(err, row) {
+            if (err) {
+                throw err;
+            }
+            else {
+                callback(null, row);
+            }
+        });
+    }
+};
+
+userModel.getUserByAdminUsername = (username, callback) => {
+    if (dbAdmin) {
+        dbAdmin.query(`SELECT *  FROM admin_user WHERE admin_username = ?`, [username], function(err, row) {
+            if (err) {
+                throw err;
+            }
+            else {
+                callback(null, row);
+            }
+        });
+    }
+};
+
+userModel.getUserById = (id, empresa, callback) => {
+    if (dbAdmin) {
+        dbAdmin.query(`SELECT username FROM usuario WHERE id_empresa = `+ empresa +` AND id_user = `+ id , function(err, row) {
             if (err) {
                 throw err;
             }
@@ -30,9 +60,9 @@ userModel.getUserByUsername = (username, callback) => {
 };
 
 userModel.getDeviceID = (username, callback) => {
-    if (db){
+    if (dbAdmin){
         query = 
-        db.query(`SELECT a.id, a.deviceid FROM dispositivos_usuario as a
+        dbAdmin.query(`SELECT a.id, a.deviceid FROM dispositivos_usuario as a
                   INNER JOIN usuario as b on a.idusuario = b.id
                   WHERE b.username = ?`, username, (err, row)=> {
             if (!err) {
@@ -48,8 +78,8 @@ userModel.getDeviceID = (username, callback) => {
 //Insert
 userModel.insertUser = (userData, callback) => {
 
-    if (db) {
-        db.query('INSERT INTO usuario SET ?', userData,
+    if (dbAdmin) {
+        dbAdmin.query('INSERT INTO usuario SET ?', userData,
             (err, result) => {
                 if (err) {
                     throw err;
@@ -59,6 +89,20 @@ userModel.insertUser = (userData, callback) => {
                 }
             }
         )
+    }
+};
+
+//CHECK PASSWORD    
+userModel.getPass = (ID, empresa, callback) => {
+    if (dbAdmin) {
+        dbAdmin.query(`SELECT password FROM usuario WHERE id_empresa = `+ empresa +` AND id_user = `+ ID, function(err, row) {
+            if (err) {
+                throw err;
+            }
+            else {
+                callback(null, row);
+            }
+        })
     }
 };
 

@@ -4,19 +4,21 @@
   "description": "**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon src/app.js"
+    "start": "nodemon src/app.js",
+    "forever": "forever start src/app.js"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
-    "cors": "^2.8.4",
+    "cors": "^2.8.5",
+    "dateformat": "^3.0.3",
     "dbc": "^3.0.0",
-    "express": "^4.16.3",
-    "jsonwebtoken": "^8.3.0",
-    "morgan": "^1.9.0",
+    "express": "^4.16.4",
+    "express-async-errors": "^3.1.1",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
     "mysql": "^2.16.0",
     "odbc": "^1.4.5"
   }
