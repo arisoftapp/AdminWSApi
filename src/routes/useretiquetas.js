@@ -1,14 +1,22 @@
 const user = require('../models/useretiquetas');
 module.exports = function (app) {
 
-
+/*
     app.get('/useretiqueta', (req, res) => {
         var username = req.params.username;
         user.getUser( (err, data) => {
             res.json({user: data});
         });
     });
-
+    */
+    /*
+    app.get('/us', (req, res) => {
+        var username = req.params.username;
+        
+            res.json({user: "data"});
+        
+    });
+*/
 
     app.get('/loginEtiquetas/:usuario/:contra', (req, res) => {
         var usuario = req.params.usuario;

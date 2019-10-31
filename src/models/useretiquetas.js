@@ -21,6 +21,7 @@ userModel.getValidarUsuario = (usuario, callback) => {
     if (dbAdmin) {
         dbAdmin.query(`SELECT 
             b.nombre_empresa AS 'empresa',
+            b.id_empresa AS 'id_empresa',
             b.dominio AS 'dominio',
             a.username AS 'usuario', 
             a.password AS 'contra',

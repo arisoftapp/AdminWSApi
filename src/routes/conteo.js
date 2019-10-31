@@ -41,7 +41,7 @@ module.exports = function (app) {
         var status = req.params.status;
         var idConteo = req.params.conteo;
         var idEmpresa = req.decoded.idEmpresa;
-        console.log("Empresa: " + idEmpresa);
+        //console.log("Empresa: " + idEmpresa);
         if (idEmpresa) {
             conteo.putConteoStatus(idEmpresa, idConteo, status, (err, data) => {
                 if (err){
@@ -148,16 +148,16 @@ module.exports = function (app) {
                 }
                 conteo.insertConteo(conteoData, (err, data) => {
                     if (data) {
-                        console.log('Conteo guadado');
+                        //console.log('Conteo guadado');
                         //console.log(valuesConteos);
                         conteo.insertDetConteo(valuesConteos, (err, data) => {
                             if (data) {
-                                console.log('Detalles guardados');
+                                //console.log('Detalles guardados');
                                 if (valuesSeries.length > 0){
                                     //console.log(valuesSeries);
                                     conteo.insertSeries(valuesSeries, (err, data) => {
                                         if (data) {
-                                            console.log('Series guardadas');
+                                            //console.log('Series guardadas');
                                             res.json({
                                                 success: true,
                                                 message: '¡Conteo y series registrado con éxito!',
@@ -170,7 +170,7 @@ module.exports = function (app) {
                                         }
                                     });
                                 } else {
-                                    console.log("Conteo sin series");
+                                    //console.log("Conteo sin series");
                                     res.json({
                                         success: true,
                                         message: '¡Conteo registrado con éxito!',
@@ -209,7 +209,7 @@ module.exports = function (app) {
         var idConteo = req.params.conteo;
         var cod_prod = req.params.codprod;
         var idEmpresa = req.decoded.idEmpresa;
-        console.log(idEmpresa + " " + idConteo + " " + cod_prod);
+        //console.log(idEmpresa + " " + idConteo + " " + cod_prod);
         if (idEmpresa && cod_prod && idConteo) {
             conteo.getSeries(idEmpresa, idConteo, cod_prod, (err, data) => {
                 if (data) {
@@ -231,7 +231,7 @@ module.exports = function (app) {
     app.get('/getseries/:conteo', (req, res) => {
         var idConteo = req.params.conteo;
         var idEmpresa = req.decoded.idEmpresa;
-        console.log(idEmpresa + " " + idConteo);
+        //console.log(idEmpresa + " " + idConteo);
         if (idEmpresa && idConteo) {
             conteo.getAllSeries(idEmpresa, idConteo, (err, data) => {
                 if (data) {
